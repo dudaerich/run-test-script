@@ -35,7 +35,7 @@ class Profile {
     ]
 
     for (def location : locations) {
-      File f = new File(location, name);
+      File f = new File(location, name)
         if (f.exists()) {
           return f
         }
@@ -44,9 +44,28 @@ class Profile {
   }
 
   void preparePropertyResolver(String testName, def arguments) {
+
+    vars.getMetaClass().union {
+      def mapDelegate = delegate
+      it.each {k, v ->
+        println "Merging $k"
+
+        if (mapDelegate[k]) {
+          if (v instanceof String && v.startsWith('+')) {
+            mapDelegate[k] = mapDelegate[k] + ' ' + v.substring(1)
+          } else {
+            mapDelegate[k] = v
+          }
+        } else {
+          mapDelegate[k] = v
+        }
+      }
+      return mapDelegate
+    }
+
     vars['TEST'] = testName
     def profiles = getProfiles(arguments)
-    profiles.each { vars = vars + it }
+    profiles.each { vars = vars.union(it) }
 
     if (vars['PWD'] == null) {
       vars['PWD'] = System.getenv('PWD')
