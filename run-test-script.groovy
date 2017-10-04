@@ -48,7 +48,6 @@ class Profile {
     vars.getMetaClass().union {
       def mapDelegate = delegate
       it.each {k, v ->
-        println "Merging $k"
 
         if (mapDelegate[k]) {
           if (v instanceof String && v.startsWith('+')) {
