@@ -27,6 +27,8 @@
       "CMD": "+-Dprepare.param.DATABASE=oracle12c -Dprepare.param.JDBC_STORE=true \"-Dprepare.param.DATABASE_JDBC_URL=jdbc:oracle:thin:@localhost:1521:xe\" -Dprepare.param.DATABASE_USER_NAME=system -Dprepare.param.DATABASE_PASSWORD=oracle -Dprepare.param.DATABASE_JDBC_CLASS=oracle.jdbc.driver.OracleDriver -Dprepare.param.DATABASE_JDBC_CLASS_XA=oracle.jdbc.xa.client.OracleXADataSource"
     },
     "ipv6": {
+      "IPV6_ADDR": "$(ifconfig | grep \"inet6 f\" | head -n 1 | sed \"s/^.*inet6 \\([a-f0-9:]\\+\\) .*$/\\1/\")",
+      "MCAST_ADDRV6": "ff0e::1",
       "CMD": "+-Darquillian.xml=arquillian-4-nodes-eap7-ipv6.xml -DMYTESTIP_1=${IPV6_ADDR} -DMYTESTIP_2=${IPV6_ADDR} -DMYTESTIP_3=${IPV6_ADDR} -DMYTESTIP_4=${IPV6_ADDR} -DMCAST_ADDR=${MCAST_ADDRV6}"
     }
   }

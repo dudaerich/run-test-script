@@ -70,10 +70,34 @@ class Profile {
       vars['PWD'] = System.getenv('PWD')
     }
 
+    vars = evaluateBashExpressions(vars)
+
     PropertyResolver propertyResolver = new PropertiesPropertyResolver(vars as Properties)
     PropertyResolver systemPropertyResolver = new SystemPropertyResolver()
     PropertyResolver envResolver = new EnvironmentPropertyResolver()
-    resolver = DollarBrace.getFilter(propertyResolver, systemPropertyResolver, envResolver);
+    resolver = DollarBrace.getFilter(propertyResolver, systemPropertyResolver, envResolver)
+  }
+
+  def evaluateBashExpressions(def expr) {
+
+    if (expr.getMetaClass().respondsTo(expr, "collectEntries")) {
+
+      return expr.collectEntries { k,v -> [k, evaluateBashExpressions(v)]}
+
+    } else if (!(expr instanceof String) && expr.getMetaClass().respondsTo(expr, "collect")) {
+
+      return expr.collect{ evaluateBashExpressions(it) }
+
+    } else {
+
+      if (expr != null && expr.startsWith('$(') && expr.endsWith(')')) {
+        return ['/bin/bash', '-c', expr[2..-2]].execute().text.trim()
+      } else {
+        return expr
+      }
+
+    }
+
   }
 
   def getProfiles(def arguments) {
