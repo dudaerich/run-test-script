@@ -1,6 +1,6 @@
 {
   "TS_HOME": "/home/eduda/Projects/messaging-testsuite",
-  "PWD": "${TS_HOME}/jboss-hornetq-testsuite",
+  "CWD": "${TS_HOME}/jboss-hornetq-testsuite",
   "ENV": {
     "JBOSS_HOME_1": "${TS_HOME}/server1",
     "JBOSS_HOME_2": "${TS_HOME}/server2",
@@ -8,7 +8,7 @@
     "JBOSS_HOME_4": "${TS_HOME}/server4"
   },
   "CMD": "mvn clean test -Dtest=${TEST} -DfailIfNoTests=false",
-  "OUT": "${PWD}/log",
+  "OUT": "${CWD}/log",
   "profiles": {
     "default": "eap7",
     "eap7": {

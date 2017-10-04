@@ -119,9 +119,11 @@ class Profile {
     preparePropertyResolver(testName, arguments)
 
     def cmd = "${get('CMD')} ${arguments.findAll({!it.startsWith('+')}).join(' ')}"
+    def cwd = get('CWD')
 
     if ('--dry-run' in arguments) {
       getEnv().each { k, v -> println "$k:$v" }
+      println "CWD: $cwd"
       println "$cmd"
       return
     }
@@ -129,7 +131,7 @@ class Profile {
     def pb = new ProcessBuilder("/bin/bash", "-c", cmd)
     def env = pb.environment()
     env.putAll(getEnv())
-    pb.directory(new File(get('PWD')))
+    pb.directory(new File(cwd))
 
     def process = pb.start()
 
