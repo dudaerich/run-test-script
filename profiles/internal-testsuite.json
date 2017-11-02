@@ -15,10 +15,9 @@
       "CMD": "+-Deap=7x"
     },
     "eap6": {
-      "CMD": "+-Deap=6x"
     },
     "debug": {
-      "CMD": "+-Dmaven.surefire.debug=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000 -Xnoagent -Djava.compiler=NONE"
+      "CMD": "+-Dmaven.surefire.debug=\"-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000 -Xnoagent -Djava.compiler=NONE\""
     },
     "jdbc": {
       "CMD": "+-Dprepare.param.DATABASE=oracle12c -Dprepare.param.JDBC_STORE=true"

@@ -1,0 +1,10 @@
+{
+  "CWD": "${env.PWD}",
+  "CMD": "mvn clean install -Dtest=${TEST} -Ptests,extra-tests -DfailIfNoTests=false -Drat.ignoreErrors=true",
+  "OUT": "${CWD}/log",
+  "profiles": {
+    "debug": {
+      "CMD": "+-Dmaven.surefire.debug=\"-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000 -Xnoagent -Djava.compiler=NONE\""
+    }
+  }
+}
